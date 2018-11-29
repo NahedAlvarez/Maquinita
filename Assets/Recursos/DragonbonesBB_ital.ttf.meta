@@ -1,0 +1,24 @@
+fileFormatVersion: 2
+guid: 72ff4c503fc6f38408850958816403ee
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Dragonbones BB
+  fontNames:
+  - Dragonbones BB
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 5ef919476b66a9c4c87f1422b012f728, type: 3}
+  - {fileID: 12800000, guid: 0c7e1f0ab87320045b3b3adaad556b6d, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
