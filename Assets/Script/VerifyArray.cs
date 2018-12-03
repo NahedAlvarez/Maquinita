@@ -3,17 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class VerifyArray : MonoBehaviour
+public class VerifyArray : Singleton<VerifyArray>
 {
     public ArrayPadre[] myArray;
-    int countDiagonal;
-    int countDiagonal1;
-    int countHorizontal;
     public GameObject button;
+    public AudioClip coin;
+    public AudioClip coin1;
+    public AudioSource _audioSource;
 
     private void Start()
     {
         myArray = MoveSprite.Instance.myArray;
+        _audioSource = GetComponent<AudioSource>();
     }
 
     public void ButtonMethod()
@@ -21,16 +22,19 @@ public class VerifyArray : MonoBehaviour
         if (MoveSprite.Instance.stopPieces == false && Coins.Instance.useCoins > 0)
         {
             Coins.Instance.ResetCoins();
-            ColorWhiteArray();
             button.GetComponentInChildren<Text>().text = "STOP";
             MoveSprite.Instance.stopPieces = true;
             Coins.Instance.ResetCoins();
+            AudioManager.Instance.PlayMusic(coin1);
+            _audioSource.volume = 0.5f;
         }
         else if (MoveSprite.Instance.stopPieces == true && Coins.Instance.useCoins > 0)
         {
             button.GetComponentInChildren<Text>().text = "SPIN";
             ExamineArray();
             MoveSprite.Instance.stopPieces = false;
+            AudioManager.Instance.PlayMusic(coin1);
+            _audioSource.volume = 0.2f;
         }  
     }
 
@@ -40,18 +44,25 @@ public class VerifyArray : MonoBehaviour
         {
             for(int j = 0; j < myArray.Length; j++)
             {
-                if (myArray[i].arrayHijo[j].GetComponentInChildren<SpriteRenderer>().color == Color.red)
+                if (myArray[i].arrayHijo[j].transform.Find("Image").GetComponent<Image>().color == Color.red)
                 {
-                    myArray[i].arrayHijo[j].GetComponentInChildren<SpriteRenderer>().color = Color.white;
+                    myArray[i].arrayHijo[j].transform.Find("Image").GetComponent<Image>().color = Color.white;
                 }
             }
         }
     }
 
+    int countDiagonal1;
+    int countHorizontal;
+    int countDiagonal;
     public void ExamineArray()
     {
+        countDiagonal = 0;
+        countDiagonal1 = 0;
+        countHorizontal = 0;
+        
         #region Diagonal
-        for(int i = 0; i < myArray.Length-1; i++)
+        for (int i = 0; i < myArray.Length-1; i++)
         {
             if(myArray[i].arrayHijo[i].sprite == myArray[i+1].arrayHijo[i+1].sprite)
             {
@@ -67,7 +78,7 @@ public class VerifyArray : MonoBehaviour
             {
                 for (int j = -1; j <= 1; j++)
                 {
-                    myArray[i-j].arrayHijo[i-j].GetComponentInChildren<SpriteRenderer>().color = Color.red;
+                    myArray[i - j].arrayHijo[i - j].transform.Find("Image").GetComponent<Image>().color = Color.red;
                 }
 
                 Coins.Instance.Recollect();
@@ -94,7 +105,8 @@ public class VerifyArray : MonoBehaviour
                 {
                     for (int k = -1; k <= 1; k++)
                     {
-                        myArray[i].arrayHijo[j + k].GetComponentInChildren<SpriteRenderer>().color = Color.red;
+                        myArray[i].arrayHijo[j + k].transform.Find("Image").GetComponent<Image>().color = Color.red;
+                        AudioManager.Instance.PlayMusic(coin);
                     }
                     Coins.Instance.Recollect();
                 }
@@ -105,6 +117,7 @@ public class VerifyArray : MonoBehaviour
 
         #region diagonal1
         int count = 2;
+        count = 2;
         for (int i = 0; i < myArray.Length - 1; i++)
         {
             if (myArray[count].arrayHijo[i].sprite == myArray[count - 1].arrayHijo[i + 1].sprite)
@@ -120,7 +133,7 @@ public class VerifyArray : MonoBehaviour
             {
                 for (int j = -1; j <= 1; j++)
                 {
-                    myArray[i - j].arrayHijo[i + j].GetComponentInChildren<SpriteRenderer>().color = Color.red;
+                    myArray[i - j].arrayHijo[i + j].transform.Find("Image").GetComponent<Image>().color = Color.red;
                 }
                 Coins.Instance.Recollect();
             }

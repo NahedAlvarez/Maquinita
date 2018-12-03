@@ -17,14 +17,20 @@ public class MoveSprite : Singleton<MoveSprite>
 
     void Start ()
     {
-        for(int i = 0; i < myArray.Length; i++)
+        ReRoll();
+        StartCoroutine(MovePiece());
+    }
+    public void ReRoll()
+    {
+        for (int i = 0; i < myArray.Length; i++)
         {
             for (int j = 0; j < myArray.Length; j++)
             {
                 myArray[i].arrayHijo[j].sprite = fruitSprite[Random.Range(0, fruitSprite.Length)];
             }
         }
-        StartCoroutine(MovePiece());
+        VerifyArray.Instance.ColorWhiteArray();
+
     }
 
     int count = 1;
@@ -37,6 +43,7 @@ public class MoveSprite : Singleton<MoveSprite>
         }
         else if(stopPieces == true && count == 0)
         {
+            ReRoll();
             StartCoroutine(MovePiece());
         }
     }

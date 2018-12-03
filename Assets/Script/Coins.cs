@@ -8,6 +8,7 @@ public class Coins : Singleton<Coins>
     public int coins = 100;
     public int useCoins;
     public Text coinText;
+    public AudioClip clipCoin;
 
     private void Start()
     {
@@ -23,6 +24,7 @@ public class Coins : Singleton<Coins>
         coins -= 1;
         useCoins += 1;
         TextActualize();
+        AudioManager.Instance.PlayMusic(clipCoin);
     }
 
     public void Recollect()
