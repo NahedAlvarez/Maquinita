@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+/// <summary>
+/// cada 5 minutos aumenta en 100 las monedas
+/// </summary>
 public class RenovarCoins : MonoBehaviour
 {
     private float time = 300f;
@@ -14,7 +16,7 @@ public class RenovarCoins : MonoBehaviour
     {
         fixedTime = time;
     }
-
+    //convierte el tiempo y modifica un text 
     private void Update()
     {
         timeText.text = "Time for coins: " + (int)(fixedTime/60) + " min";

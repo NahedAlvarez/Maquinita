@@ -1,49 +1,75 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class AudioManager : MonoBehaviour {
-
-	// Audio players components.
-	public AudioSource EffectsSource;
+using UnityEngine.UI;
+/// <summary>
+/// Maneja el sonido de la scena.
+/// </summary>
+public class AudioManager : MonoBehaviour
+{
 	public AudioSource MusicSource;
-
-	// Random pitch adjustment range.
+    
 	public float LowPitchRange = .95f;
 	public float HighPitchRange = 1.05f;
+    public Sprite[] soundSprite;
+    public bool mute;
+    public GameObject buttonSound;
+    public AudioSource[] au;
 
-	// Singleton instance.
-	public static AudioManager Instance = null;
+    public static AudioManager Instance = null;
 	
-	// Initialize the singleton instance.
 	private void Awake()
 	{
-		// If there is not already an instance of SoundManager, set it to this.
+
 		if (Instance == null)
 		{
 			Instance = this;
 		}
-		//If an instance already exists, destroy whatever this object is to enforce the singleton.
+
 		else if (Instance != this)
 		{
 			Destroy(gameObject);
 		}
 
-		//Set SoundManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene.
 		DontDestroyOnLoad (gameObject);
 	}
 
-	// Play a single clip through the sound effects source.
-	public void Play(AudioClip clip)
-	{
-		EffectsSource.clip = clip;
-		EffectsSource.Play();
-	}
-
-	// Play a single clip through the music source.
+    //Reproduce un audioClIP 
 	public void PlayMusic(AudioClip clip)
 	{
 		MusicSource.clip = clip;
 		MusicSource.Play();
 	}
+    //Silencia el audio de todos los audio sources
+    public void Mute()
+    {
+
+        if (mute)
+        {
+            buttonSound.GetComponent<Image>().sprite = soundSprite[0];
+            for (int i = 0; i < au.Length; i++)
+            {
+                au[i].volume = 0.5f;
+            }
+        }
+        else
+        {
+            buttonSound.GetComponent<Image>().sprite = soundSprite[1];
+            for (int i = 0; i < au.Length; i++)
+            {
+                Debug.Log("b");
+                au[i].volume = 0;
+            }
+            
+        }
+        if (mute)
+        {
+            mute = false;
+        }
+        else
+        {
+            mute = true;
+        }
+
+    }
 }

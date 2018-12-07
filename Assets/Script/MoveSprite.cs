@@ -8,7 +8,9 @@ public class ArrayPadre
 {
     public Image[] arrayHijo;
 }
-
+/// <summary>
+/// mueve los sprites a trvez de una cinta 
+/// </summary>
 public class MoveSprite : Singleton<MoveSprite>
 {
     public Sprite[] fruitSprite;
@@ -20,6 +22,7 @@ public class MoveSprite : Singleton<MoveSprite>
         ReRoll();
         StartCoroutine(MovePiece());
     }
+    // cambia todas los sprites en las cintas 
     public void ReRoll()
     {
         for (int i = 0; i < myArray.Length; i++)
@@ -47,6 +50,8 @@ public class MoveSprite : Singleton<MoveSprite>
             StartCoroutine(MovePiece());
         }
     }
+
+    //mueve las fichas cada .3 segundos 
     WaitForSeconds timeFruitMove;
     IEnumerator MovePiece()
     {

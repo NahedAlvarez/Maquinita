@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class StartRoutine : MonoBehaviour
 {
-
+    //carga la escena 
     public void MethodGameUI()
     {
         SceneManager.LoadScene("GameTest"); 

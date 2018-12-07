@@ -26,6 +26,7 @@ public class VerifyArray : Singleton<VerifyArray>
             MoveSprite.Instance.stopPieces = true;
             Coins.Instance.ResetCoins();
             AudioManager.Instance.PlayMusic(coin1);
+            if(!AudioManager.Instance.mute)
             _audioSource.volume = 0.5f;
         }
         else if (MoveSprite.Instance.stopPieces == true && Coins.Instance.useCoins > 0)
@@ -34,7 +35,8 @@ public class VerifyArray : Singleton<VerifyArray>
             ExamineArray();
             MoveSprite.Instance.stopPieces = false;
             AudioManager.Instance.PlayMusic(coin1);
-            _audioSource.volume = 0.2f;
+            if (!AudioManager.Instance.mute)
+                _audioSource.volume = 0.2f;
         }  
     }
 
@@ -51,7 +53,7 @@ public class VerifyArray : Singleton<VerifyArray>
             }
         }
     }
-
+    //examoina el array para saber si gano el jugador o no de forma horizontal y transversal
     int countDiagonal1;
     int countHorizontal;
     int countDiagonal;
